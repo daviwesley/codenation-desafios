@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import { slugify } from "../helpers";
 
 // TODO: Você deve verificar se a receita existe
-const RecipePage = ({ recipes, match }) => {
-  const { receita } = match.params;
+const RecipePage = ({ recipes = [], match = { params: {} } }) => {
+  const { receita = "" } = match.params;
   console.log("receita =>", receita);
   const filteredRecipes = recipes
     .filter(data => {

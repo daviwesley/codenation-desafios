@@ -4,7 +4,12 @@ import { slugify } from "../helpers";
 
 const DEFAULT_IMG = "https://via.placeholder.com/350x300";
 
-const RecipeItem = ({ title = "", ingredients, img = DEFAULT_IMG, text }) => {
+const RecipeItem = ({
+  title = "",
+  ingredients,
+  img = DEFAULT_IMG,
+  text = ""
+}) => {
   return (
     <div className="col-sm-3 mt-4">
       <div className="card">
