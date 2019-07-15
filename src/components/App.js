@@ -9,19 +9,12 @@ import RecipePage from "./RecipePage";
 import recipes from "../sample_data/recipes.json";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      searchString: ""
-    };
-  }
   onChange = e => {
     const { history } = this.props;
     history.push(`/${e.target.value}`);
   };
   render() {
     const { searchString } = this.props.match.params;
-    console.log("searchString=>", searchString);
     return (
       <div className="App">
         {/* TODO: Navbar precisa receber a string da URL */}
