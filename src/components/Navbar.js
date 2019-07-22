@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 import logo from "../logo.svg";
 import { Link } from "react-router-dom";
 
-const Navbar = ({ searchString, onChange }) => {
+const Navbar = ({ history, searchString }) => {
+  // console.log(searchString);
   return (
     <nav className="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
       <div className="navbar-brand col-1">
@@ -15,8 +16,7 @@ const Navbar = ({ searchString, onChange }) => {
       <div className="form-group justify-content-center row col-10 my-2">
         <input
           value={searchString}
-          // TODO: onChange deve atualizar a URL
-          onChange={onChange}
+          onChange={e => history.push(`/${e.target.value}`)}
           className="form-control col-9 mr-2"
           type="search"
           placeholder="Search"

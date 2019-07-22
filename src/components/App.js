@@ -9,17 +9,21 @@ import RecipePage from "./RecipePage";
 import recipes from "../sample_data/recipes.json";
 
 class App extends Component {
-  onChange = e => {
-    const { history } = this.props;
-    history.push(`/${e.target.value}`);
-  };
   render() {
-    const { searchString } = this.props.match.params;
     return (
       <div className="App">
         {/* TODO: Navbar precisa receber a string da URL */}
-        <Navbar searchString={searchString} onChange={this.onChange} />
-        )}/>
+        <Route
+          path="/:searchString?"
+          render={props => (
+            <Navbar
+              {...props}
+              searchString={
+                props.match ? props.match.params.searchString || "" : ""
+              }
+            />
+          )}
+        />
         <div className="container mt-10">
           <Switch>
             <Route
@@ -31,12 +35,6 @@ class App extends Component {
             />
             <Route
               exact
-              path="/recipe/:receita"
-              render={props => (
-                <RecipePage {...props} recipes={recipes.results} />
-              )}
-            />
-            <Route
               path="/:searchString?"
               render={props => (
                 <Home
@@ -44,6 +42,14 @@ class App extends Component {
                   searchString={props.match.params.searchString}
                   recipes={recipes.results}
                 />
+              )}
+            />
+            <Route
+              exact
+              path="/recipe/:receita"
+              children={({ match }) => null}
+              render={props => (
+                <RecipePage {...props} recipe={recipes.results} />
               )}
             />
           </Switch>

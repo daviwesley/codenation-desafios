@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import { slugify } from "../helpers";
 
 // TODO: Você deve verificar se a receita existe
-const RecipePage = ({ recipes = [], match = { params: {} } }) => {
+const RecipePage = ({ recipe = [], match = { params: {} } }) => {
   const { receita = "" } = match.params;
   console.log("receita =>", receita);
-  const filteredRecipes = recipes
+  const filteredRecipes = recipe
     .filter(data => {
       return (
         slugify(data.title)

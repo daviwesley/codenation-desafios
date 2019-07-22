@@ -13,7 +13,7 @@ const RecipeItem = ({
   return (
     <div className="col-sm-3 mt-4">
       <div className="card">
-        <Link to={`recipe/${slugify(text)}`}>
+        <Link to={`/recipe/${slugify(text)}`}>
           <img className="card-img-top img-fluid" src={img} alt={title} />
         </Link>
         <div className="card-body">
