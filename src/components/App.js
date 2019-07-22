@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, matchPath } from "react-router-dom";
 import { withRouter } from "react-router";
 // componentes
 import Navbar from "./Navbar";
@@ -7,9 +7,19 @@ import Home from "./Home";
 import RecipePage from "./RecipePage";
 // dados
 import recipes from "../sample_data/recipes.json";
-
+import { slugify } from "../helpers";
 class App extends Component {
+  // https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/api/matchPath.md
+  getSearchString = () => {
+    const match = matchPath(this.props.location.pathname, {
+      path: "/:searchString",
+      exact: true
+    });
+
+    return match ? match.params.searchString : "";
+  };
   render() {
+    console.log(this.getSearchString());
     return (
       <div className="App">
         {/* TODO: Navbar precisa receber a string da URL */}
@@ -46,10 +56,21 @@ class App extends Component {
             />
             <Route
               exact
-              path="/recipe/:receita"
-              children={({ match }) => null}
-              render={props => (
-                <RecipePage {...props} recipe={recipes.results} />
+              path="/recipe/:title"
+              render={({
+                match: {
+                  params: { title }
+                }
+              }) => (
+                <RecipePage
+                  recipe={
+                    recipes.results.filter(recipe => {
+                      return slugify(recipe.title)
+                        .toLowerCase()
+                        .includes(title.toLowerCase());
+                    })[0]
+                  }
+                />
               )}
             />
           </Switch>
